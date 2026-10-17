@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Registro | GameVault{% endblock %}
+
+{% block content %}
+<div class="columns is-centered mt-2">
+    <div class="column is-4">
+        <div class="card-custom">
+            <div class="has-text-centered mb-4">
+                <i class="fa-solid fa-user-plus fa-2x has-text-info mb-2"></i>
+                <h1 class="title is-4 has-text-white">Crear Cuenta</h1>
+            </div>
+
+            <form method="POST">
+                {{ form.hidden_tag() }}
+
+                <div class="field">
+                    <label class="label">{{ form.username.label.text }}</label>
+                    <div class="control">
+                        {{ form.username(class="input") }}
+                    </div>
+                    {% for error in form.username.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="field">
+                    <label class="label">{{ form.email.label.text }}</label>
+                    <div class="control">
+                        {{ form.email(class="input") }}
+                    </div>
+                    {% for error in form.email.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="field">
+                    <label class="label">{{ form.password.label.text }}</label>
+                    <div class="control">
+                        {{ form.password(class="input") }}
+                    </div>
+                    {% for error in form.password.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="field">
+                    <label class="label">{{ form.password_confirm.label.text }}</label>
+                    <div class="control">
+                        {{ form.password_confirm(class="input") }}
+                    </div>
+                    {% for error in form.password_confirm.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="field mt-5">
+                    <button type="submit" class="button btn-gradient-primary is-fullwidth">
+                        Registrarme
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

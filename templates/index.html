@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Catálogo | GameVault{% endblock %}
+
+{% block content %}
+<div class="card-custom mb-6">
+    <div class="is-flex is-justify-content-space-between is-align-items-center mb-5">
+        <div>
+            <h1 class="title is-3 has-text-white mb-2">Biblioteca de Juegos</h1>
+            <p class="subtitle is-6 has-text-grey-light">Gestión con ORM y Autenticación de Usuarios</p>
+        </div>
+        <a href="{{ url_for('agregar') }}" class="button btn-gradient-primary">
+            <i class="fa-solid fa-plus mr-2"></i> Nuevo Juego
+        </a>
+    </div>
+
+    <div class="table-container">
+        <table class="table is-fullwidth table-custom">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th class="has-text-right">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for juego in juegos %}
+                <tr>
+                    <td><span class="tag is-dark">{{ juego.id }}</span></td>
+                    <td><strong class="has-text-info">{{ juego.nombre }}</strong></td>
+                    <td class="has-text-grey-light">{{ juego.descripcion or 'Sin descripción' }}</td>
+                    <td><span class="has-text-weight-bold has-text-success">${{ "%.2f"|format(juego.precio) }}</span></td>
+                    <td class="has-text-right">
+                        <div class="buttons is-right">
+                            <a href="{{ url_for('editar', id=juego.id) }}" class="button is-small is-info is-outlined">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <form action="{{ url_for('eliminar', id=juego.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Seguro que deseas eliminar este juego?');">
+                                <button type="submit" class="button is-small is-danger is-outlined">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="has-text-centered py-5 has-text-grey">
+                        <p>No hay videojuegos registrados.</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

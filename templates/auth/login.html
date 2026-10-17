@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Iniciar Sesión | GameVault{% endblock %}
+
+{% block content %}
+<div class="columns is-centered mt-4">
+    <div class="column is-4">
+        <div class="card-custom">
+            <div class="has-text-centered mb-5">
+                <i class="fa-solid fa-shield-halved fa-3x has-text-info mb-3"></i>
+                <h1 class="title is-4 has-text-white">Iniciar Sesión</h1>
+            </div>
+
+            <form method="POST">
+                {{ form.hidden_tag() }}
+
+                <div class="field">
+                    <label class="label">{{ form.email.label.text }}</label>
+                    <div class="control">
+                        {{ form.email(class="input") }}
+                    </div>
+                    {% for error in form.email.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="field">
+                    <label class="label">{{ form.password.label.text }}</label>
+                    <div class="control">
+                        {{ form.password(class="input") }}
+                    </div>
+                    {% for error in form.password.errors %}
+                        <p class="help is-danger">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="field mb-4">
+                    <label class="checkbox has-text-grey-light">
+                        {{ form.remember_me() }} {{ form.remember_me.label.text }}
+                    </label>
+                </div>
+
+                <div class="field">
+                    <button type="submit" class="button btn-gradient-primary is-fullwidth">
+                        Entrar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

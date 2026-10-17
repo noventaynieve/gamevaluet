@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Agregar Juego | GameVault{% endblock %}
+
+{% block content %}
+<div class="columns is-centered">
+    <div class="column is-6">
+        <div class="card-custom">
+            <h2 class="title is-4 has-text-white mb-4">Añadir Videojuego</h2>
+            <form method="POST">
+                <div class="field">
+                    <label class="label">Nombre del Juego</label>
+                    <div class="control">
+                        <input class="input" type="text" name="nombre" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Descripción</label>
+                    <div class="control">
+                        <textarea class="textarea" name="descripcion" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Precio ($ MXN)</label>
+                    <div class="control">
+                        <input class="input" type="number" step="0.01" name="precio" required>
+                    </div>
+                </div>
+
+                <div class="field is-grouped is-grouped-right mt-5">
+                    <p class="control">
+                        <a href="{{ url_for('index') }}" class="button is-dark">Cancelar</a>
+                    </p>
+                    <p class="control">
+                        <button type="submit" class="button btn-gradient-primary">Guardar</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

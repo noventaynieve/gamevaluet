@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GameVault{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #00f2fe;
+            --text-color: #f8fafc;
+            --border-color: #334155;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+        }
+
+        .navbar.is-dark-custom {
+            background-color: #1e293b;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-item, .navbar-link {
+            color: #94a3b8 !important;
+            font-weight: 500;
+        }
+
+        .brand-title {
+            font-weight: 700;
+            font-size: 1.4rem;
+            background: linear-gradient(45deg, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-custom {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+        }
+
+        .input, .textarea {
+            background-color: #0f172a !important;
+            border: 1px solid var(--border-color) !important;
+            color: #f8fafc !important;
+            border-radius: 8px;
+        }
+
+        .input:focus, .textarea:focus {
+            border-color: var(--accent-color) !important;
+            box-shadow: 0 0 0 0.125em rgba(0, 242, 254, 0.25) !important;
+        }
+
+        .label { color: #cbd5e1 !important; }
+
+        .table-custom {
+            background-color: transparent !important;
+            color: #f8fafc !important;
+        }
+
+        .table-custom th {
+            color: #94a3b8 !important;
+            border-bottom: 2px solid var(--border-color) !important;
+        }
+
+        .table-custom td {
+            border-bottom: 1px solid var(--border-color) !important;
+            vertical-align: middle;
+        }
+
+        .btn-gradient-primary {
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            border: none;
+            color: #0f172a;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-gradient-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar is-dark-custom mb-5" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item brand-title" href="{{ url_for('index') }}">
+                    <i class="fa-solid fa-gamepad mr-2"></i> GameVault
+                </a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        {% if current_user.is_authenticated %}
+                            <span class="mr-4 has-text-grey-light">
+                                <i class="fa-solid fa-user-astronaut mr-1"></i> {{ current_user.username }}
+                            </span>
+                            <a href="{{ url_for('auth.logout') }}" class="button is-small is-danger is-outlined">
+                                <i class="fa-solid fa-right-from-bracket mr-1"></i> Salir
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('auth.login') }}" class="button btn-gradient-primary">
+                                <i class="fa-solid fa-key mr-1"></i> Ingresar
+                            </a>
+                            <a href="{{ url_for('auth.register') }}" class="button is-dark">
+                                <i class="fa-solid fa-user-plus mr-1"></i> Registro
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container px-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="notification is-{{ category if category != 'error' else 'danger' }} is-light">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
