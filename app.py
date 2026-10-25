@@ -3,6 +3,7 @@ from flask_login import LoginManager, login_required
 from config import Config
 from models import db, User
 from auth import auth as auth_blueprint
+from api import api_bp  # <-- 1. Importar el blueprint de la API
 import controllers
 
 app = Flask(__name__)
@@ -22,8 +23,9 @@ login_manager.init_app(app)
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# Registrar Blueprint
+# Registrar Blueprints
 app.register_blueprint(auth_blueprint, url_prefix='/auth')
+app.register_blueprint(api_bp, url_prefix='/api')  # <-- 2. Registrar el blueprint de la API con prefijo /api
 
 # -------------------------------------------------------------
 # Rutas Protegidas del CRUD
