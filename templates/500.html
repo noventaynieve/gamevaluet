@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <div class="alert alert-dark shadow-sm p-5">
+        <h1 class="display-4 text-danger">Error 500</h1>
+        <h2>Error interno del servidor</h2>
+        <p class="lead">Ocurrió un error inesperado en el servidor. Ya estamos trabajando para solucionarlo.</p>
+        <a href="{{ url_for('index') }}" class="btn btn-primary mt-3">Volver al inicio</a>
+    </div>
+</div>
+{% endblock %}
